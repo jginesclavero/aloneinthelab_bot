@@ -1,31 +1,41 @@
-import requests
-import datetime
+#!/usr/bin/python
 
-class BotHandler:
+import logging
+import telegram
+from telegram.ext import Updater
+from telegram.ext import CommandHandler
+from telegram.ext import MessageHandler, Filters, CallbackQueryHandler
 
-    def __init__(self, token):
-        self.token = 404730621:AAGIEK7qkzXrmJiGZ5-FnkDOmubmDRWRYoA
-        self.api_url = "https://api.telegram.org/bot{}/".format(token)
 
-    def get_updates(self, offset=None, timeout=30):
-        method = 'getUpdates'
-        params = {'timeout': timeout, 'offset': offset}
-        resp = requests.get(self.api_url + method, params)
-        result_json = resp.json()['result']
-        return result_json
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
 
-    def send_message(self, chat_id, text):
-        params = {'chat_id': chat_id, 'text': text}
-        method = 'sendMessage'
-        resp = requests.post(self.api_url + method, params)
-        return resp
+logger = logging.getLogger(__name__)
 
-    def get_last_update(self):
-        get_result = self.get_updates()
+def start(bot, update):
+    bot.send_message(chat_id=update.message.chat_id, text="Hola! acabo de iniciarme, como estas?")
 
-        if len(get_result) > 0:
-            last_update = get_result[-1]
-        else:
-            last_update = get_result[len(get_result)]
+def get_price(bot, update):
+    bot.send_message(chat_id=update.message.chat_id, text="Cuando este completo, aqui te devolvere el precio")
 
-        return last_update
+def main():
+
+    logger.info('Start!!!')
+
+    updater = Updater(token='404730621:AAGIEK7qkzXrmJiGZ5-FnkDOmubmDRWRYoA')
+
+    dispatcher = updater.dispatcher
+
+    start_handler = CommandHandler("start", start)
+    price_handler = CommandHandler("getPrice", get_price)
+
+    dispatcher.add_handler(price_handler)
+    dispatcher.add_handler(start_handler)
+
+    updater.start_polling()
+
+    updater.idle()
+
+
+if __name__ == '__main__':
+    main()
