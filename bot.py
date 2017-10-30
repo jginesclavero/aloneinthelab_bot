@@ -22,13 +22,13 @@ def get_price(bot, update):
     r = requests.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR")
     bot.send_message(chat_id=update.message.chat_id, text="Cuando este completo, aqui te devolvere el precio")
     #print r.content
-    #bot.send_message(chat_id=update.message.chat_id, text=r.content)
+    bot.send_message(chat_id=update.message.chat_id, text=r.content)
 
 
 def update_price():
-    print "Every 10 seconds"
+    #print "Every 10 seconds"
     r = requests.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR")
-    print r.content
+    #print r.content
 
 
 
