@@ -12,8 +12,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-sched = Scheduler()
-sched.start()
+#sched = Scheduler()
+#sched.start()
 
 def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Hola! acabo de iniciarme, como estas?")
