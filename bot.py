@@ -30,7 +30,8 @@ def get_price(bot, update):
     logger.info('getPrice recibido')
     #logger.info(r.content)
     msg = requests.get("https://min-api.cryptocompare.com/data/price?fsym=ETN&tsyms=USD,EUR")
-    bot.send_message(chat_id=update.message.chat_id, text=msg.content)
+    data = json.loads(msg.content)
+    bot.send_message(chat_id=update.message.chat_id, text=data)
     bot_global = bot
     update_global = update
 
@@ -42,10 +43,10 @@ def update_price():
     global update_global
     r = requests.get("https://min-api.cryptocompare.com/data/price?fsym=ETN&tsyms=USD,EUR")
     threading.Timer(30, update_price).start()
-    #data = json.loads(r.content)
+    data = json.loads(r.content)
     #print (data["USD"])
-    #if float(data["USD"]) >= limit:
-        #bot_global.send_message(chat_id=update_global.message.chat_id, text="ETN tiene un valor de 1$, ya teneis para un viaje a Maldivas")
+    if float(data["USD"]) >= limit:
+        bot_global.send_message(chat_id=update_global.message.chat_id, text="ETN tiene un valor de 1$, ya teneis para un viaje a Maldivas")
 
 def get_help(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="AloneInTheLab Bot, Mision ETN. Monitorizacion de precio y aviso cuando se alcance el valor de 1$. Comandos: /getPrice (Obtener precio actual del ETN)")
