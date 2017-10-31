@@ -29,6 +29,8 @@ def get_price(bot, update):
     global update_global
     bot_global = bot
     update_global = update
+    logger.info('getPrice recibido')
+    logger.info(r.content)
     #r = requests.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR")
     #logger.info('Get_price')
     bot.send_message(chat_id=update.message.chat_id, text=r.content)
