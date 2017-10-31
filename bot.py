@@ -28,8 +28,8 @@ def get_price(bot, update):
     global bot_global
     global update_global
     logger.info('getPrice recibido')
-    logger.info(r.content)
-    bot.send_message(chat_id=update.message.chat_id, text=r.content)
+    #logger.info(r.content)
+    bot.send_message(chat_id=update.message.chat_id, text=requests.get("https://min-api.cryptocompare.com/data/price?fsym=ETN&tsyms=USD,EUR"))
     bot_global = bot
     update_global = update
 
