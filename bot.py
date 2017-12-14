@@ -34,7 +34,7 @@ def get_price(bot, update):
     response = "Estos son los precios actuales: \n"
 
     for ccy in data.keys():
-        response +=  str('{0:.10f}'.format(data[ccy])) + " ETN/"+str(ccy) +"\n"
+        response +=  str('{0:.10f}'.format(data[ccy])) + " ETN/"+str(ccy) +"\n\n"
 
     bot.send_message(chat_id=update.message.chat_id, text=response)
     bot_global = bot
