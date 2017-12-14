@@ -31,7 +31,12 @@ def get_price(bot, update):
     #logger.info(r.content)
     msg = requests.get("https://min-api.cryptocompare.com/data/price?fsym=ETN&tsyms=USD,EUR,BTC,LTC")
     data = json.loads(msg.content)
-    bot.send_message(chat_id=update.message.chat_id, text=data)
+    response = "Estos son los precios actuales: \n"
+
+    for ccy in data.keys():
+        response +=  str('{0:.10f}'.format(data[ccy])) + " ETN/"+str(ccy) +"\n"
+
+    bot.send_message(chat_id=update.message.chat_id, text=response)
     bot_global = bot
     update_global = update
 
@@ -56,7 +61,7 @@ def main():
 
     logger.info('Start!!!')
 
-    updater = Updater(token='404730621:AAGIEK7qkzXrmJiGZ5-FnkDOmubmDRWRYoA')
+    updater = Updater(token='Tu token va en esta variable')
 
     dispatcher = updater.dispatcher
 
